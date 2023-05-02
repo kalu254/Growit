@@ -144,15 +144,7 @@ fun AccountLookUp(
                 }
             }
 
-            val annotatedString = buildAnnotatedString {
-                append("I agree to the ")
-                pushStringAnnotation(tag = "policy", annotation = "https://google.com/policy")
-                withStyle(style = SpanStyle(color = PrimaryColor)) {
-                    append("Terms & Conditions")
-                }
-                pop()
 
-            }
 
             Spacer(modifier = Modifier.height(8.dp))
             Row(
@@ -167,6 +159,15 @@ fun AccountLookUp(
                     },
                     colors = CheckboxDefaults.colors(PrimaryColor)
                 )
+                val annotatedString = buildAnnotatedString {
+                    append("I agree to the ")
+                    pushStringAnnotation(tag = "policy", annotation = "https://google.com/policy")
+                    withStyle(style = SpanStyle(color = PrimaryColor)) {
+                        append("Terms & Conditions")
+                    }
+                    pop()
+
+                }
 
                 ClickableText(text = annotatedString,
                     style = MaterialTheme.typography.bodySmall,

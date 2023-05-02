@@ -9,4 +9,5 @@
     <string name="fetch">Fetch</string>
     <string name="device_verification">Device Verification</string>
     <string name="device_verification_desc">We’ve sent verification code to your mobile number %s</string>
+    <string name="session_expiresin">This session will expire in</string>
 </resources>
