@@ -3,31 +3,22 @@
 package com.kalu.growit.feature.onboarding
 
 import android.view.animation.OvershootInterpolator
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.*
 import com.kalu.growit.compose_ui.components.GrowItOutlinedRoundedButton
@@ -35,19 +26,18 @@ import com.kalu.growit.compose_ui.components.GrowItSolidRoundedButton
 import com.kalu.growit.compose_ui.theme.PrimaryTextColor
 import com.kalu.growit.core.model.ui.OnBoardingPage
 import com.kalu.growit.core.util.LottieAnim
+import com.kalu.growit.feature.onboarding.navigator.OnboardingNavigator
 import com.ramcosta.composedestinations.annotation.Destination
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
-interface WalkThroughNavigator {
-    fun moveNext()
-    fun lookUp()
-}
 
 @Destination
 @Composable
 fun SplashScreen(
-    navigator: WalkThroughNavigator
+    navigator: OnboardingNavigator
 ) {
 
     val scale = remember {
@@ -79,7 +69,11 @@ fun SplashScreen(
 @OptIn(ExperimentalPagerApi::class, ExperimentalAnimationApi::class)
 @Composable
 @Destination
-fun WalkThroughScreen(navigator: WalkThroughNavigator) {
+fun WalkThroughScreen(navigator: OnboardingNavigator) {
+
+    val scope = rememberCoroutineScope()
+
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceAround
@@ -88,7 +82,8 @@ fun WalkThroughScreen(navigator: WalkThroughNavigator) {
         val pages = listOf(
             OnBoardingPage.First,
             OnBoardingPage.Second,
-            OnBoardingPage.Third
+            OnBoardingPage.Third,
+            OnBoardingPage.Fourth
         )
         val pagerState = rememberPagerState()
 
@@ -97,7 +92,7 @@ fun WalkThroughScreen(navigator: WalkThroughNavigator) {
             HorizontalPager(
                 modifier = Modifier
                     .fillMaxHeight(0.6f),
-                count = 3,
+                count = 4,
                 state = pagerState,
                 verticalAlignment = Alignment.Top
             ) { position ->
@@ -120,18 +115,14 @@ fun WalkThroughScreen(navigator: WalkThroughNavigator) {
             horizontalArrangement = Arrangement.Center
         ) {
             Column {
-
                 WalkthroughButtons(
-                    pagerState = pagerState,
-                    onClickContinue = {
-                        navigator.moveNext()
-                    },
+                    scope = scope,
+                    state = pagerState,
                     onClickGetStarted = {
-                        //TODO: move to look up directly
+                        navigator.getStarted()
                     }
                 )
             }
-
 
         }
 
@@ -143,9 +134,9 @@ fun WalkThroughScreen(navigator: WalkThroughNavigator) {
 @ExperimentalPagerApi
 @Composable
 fun WalkthroughButtons(
-    pagerState: PagerState,
-    onClickContinue: () -> Unit,
-    onClickGetStarted: () -> Unit
+    scope: CoroutineScope,
+    state: PagerState,
+    onClickGetStarted: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -155,11 +146,13 @@ fun WalkthroughButtons(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        GrowItSolidRoundedButton {
-            onClickContinue.invoke()
+        GrowItSolidRoundedButton("Get Started") {
+            scope.launch {
+                state.scrollToPage(state.currentPage + 1)
+            }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        GrowItOutlinedRoundedButton {
+        GrowItOutlinedRoundedButton("Continue") {
             onClickGetStarted.invoke()
         }
 
@@ -200,30 +193,6 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
             textAlign = TextAlign.Center,
             color = PrimaryTextColor
         )
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun ThirdOnBoardingScreenPreview() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        PagerScreen(onBoardingPage = OnBoardingPage.Third)
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun SecondOnBoardingScreenPreview() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        PagerScreen(onBoardingPage = OnBoardingPage.Second)
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun FirstOnBoardingScreenPreview() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        PagerScreen(onBoardingPage = OnBoardingPage.First)
     }
 }
 

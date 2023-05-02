@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="acc_look_up">Account lookup</string>
+    <string name="acc_look_up_desc">Please provide your Full name &amp; ID Number so that we can fetch your account details.</string>
+    <string name="ex_evans_name">e.g Evans Gangla</string>
+    <string name="full_names">Full Names</string>
+    <string name="id_no">ID Number</string>
+    <string name="ex_id_no">e.g 648390</string>
+    <string name="fetch">Fetch</string>
+    <string name="device_verification">Device Verification</string>
+    <string name="device_verification_desc">We’ve sent verification code to your mobile number %s</string>
+</resources>

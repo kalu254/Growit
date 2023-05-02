@@ -1,5 +1,7 @@
 package com.kalu.growit.navigation
 
+import com.kalu.growit.feature.onboarding.destinations.AccountLookUpDestination
+import com.kalu.growit.feature.onboarding.destinations.DeviceVerificationScreenDestination
 import com.kalu.growit.feature.onboarding.destinations.SplashScreenDestination
 import com.kalu.growit.feature.onboarding.destinations.WalkThroughScreenDestination
 import com.ramcosta.composedestinations.dynamic.routedIn
@@ -15,7 +17,9 @@ object NavGraphs {
 
         override val destinationsByRoute = listOf<DestinationSpec<*>>(
             SplashScreenDestination,
-            WalkThroughScreenDestination
+            WalkThroughScreenDestination,
+            AccountLookUpDestination,
+            DeviceVerificationScreenDestination
         ).routedIn(this)
             .associateBy { it.route }
     }
