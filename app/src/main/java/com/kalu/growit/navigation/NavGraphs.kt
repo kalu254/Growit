@@ -1,9 +1,6 @@
 package com.kalu.growit.navigation
 
-import com.kalu.growit.feature.onboarding.destinations.AccountLookUpDestination
-import com.kalu.growit.feature.onboarding.destinations.DeviceVerificationScreenDestination
-import com.kalu.growit.feature.onboarding.destinations.SplashScreenDestination
-import com.kalu.growit.feature.onboarding.destinations.WalkThroughScreenDestination
+import com.kalu.growit.feature.onboarding.destinations.*
 import com.ramcosta.composedestinations.dynamic.routedIn
 import com.ramcosta.composedestinations.spec.DestinationSpec
 import com.ramcosta.composedestinations.spec.NavGraphSpec
@@ -19,7 +16,8 @@ object NavGraphs {
             SplashScreenDestination,
             WalkThroughScreenDestination,
             AccountLookUpDestination,
-            DeviceVerificationScreenDestination
+            DeviceVerificationScreenDestination,
+            CreateNewScreenDestination,
         ).routedIn(this)
             .associateBy { it.route }
     }

@@ -8,10 +8,12 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
@@ -19,6 +21,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -28,19 +31,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.airbnb.lottie.model.content.CircleShape
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
 import com.kalu.growit.compose_ui.R
 import com.kalu.growit.compose_ui.theme.PrimaryColor
 import com.kalu.growit.core.util.LottieAnim
+import com.kalu.growit.feature.onboarding.navigator.OnboardingNavigator
 import com.ramcosta.composedestinations.annotation.Destination
 import timber.log.Timber
 
 
 @Destination
 @Composable
-fun DeviceVerificationScreen(phoneNumber: String) {
+fun DeviceVerificationScreen(phoneNumber: String,navigator: OnboardingNavigator) {
 
     var shouldResendOtp by remember {
         mutableStateOf(false)
@@ -71,11 +76,13 @@ fun DeviceVerificationScreen(phoneNumber: String) {
             Spacer(modifier = Modifier.height(24.dp))
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-,                horizontalArrangement = Arrangement.Center
+                    .fillMaxWidth(), horizontalArrangement = Arrangement.Center
             ) {
                 LottieAnim(
                     modifier = Modifier
+                        .clickable {
+                            navigator.createNewPin()
+                        }
                         .fillMaxWidth(0.5f)
                         .height(300.dp), resId = R.raw.lottie_device_verification
                 )
@@ -86,7 +93,7 @@ fun DeviceVerificationScreen(phoneNumber: String) {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onSecondaryContainer,),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onSecondaryContainer),
                     shape = RoundedCornerShape(6.dp),
                     elevation = CardDefaults.cardElevation(
                         defaultElevation = 10.dp
@@ -103,18 +110,31 @@ fun DeviceVerificationScreen(phoneNumber: String) {
                             Card(
                                 modifier = Modifier.size(50.dp),
                                 shape = RoundedCornerShape(10.dp),
-                                colors = CardDefaults.cardColors(containerColor = Color.White,),
+                                colors = CardDefaults.cardColors(containerColor = Color.White),
                                 elevation = CardDefaults.cardElevation(
                                     defaultElevation = 10.dp
                                 )
 
                             ) {
-                                Box(modifier = Modifier.fillMaxSize()) {
-                                    Text(
-                                        modifier = Modifier.align(Alignment.Center),
-                                        text = "1",
-                                        style = MaterialTheme.typography.labelMedium
-                                    )
+                                Box(
+                                    modifier = Modifier
+                                        .padding(8.dp)
+                                        .fillMaxSize()
+                                ) {
+                                    Box(
+                                        modifier = Modifier.size(16.dp)
+                                            .clip(CircleShape)
+                                            .background(color = PrimaryColor).align(Alignment.Center)
+                                    ) {
+                                        Text(
+                                            modifier = Modifier
+                                                .background(
+                                                    color = PrimaryColor,
+                                                ),
+                                            text = "",
+                                            style = MaterialTheme.typography.labelMedium
+                                        )
+                                    }
                                 }
                             }
 

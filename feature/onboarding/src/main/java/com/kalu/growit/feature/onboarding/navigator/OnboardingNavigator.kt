@@ -4,4 +4,6 @@ interface OnboardingNavigator{
     fun moveNext()
     fun getStarted()
     fun openDeviceVerification(phoneNumber: String)
+
+    fun createNewPin()
 }

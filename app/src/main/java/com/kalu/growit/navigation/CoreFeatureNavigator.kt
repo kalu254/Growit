@@ -2,6 +2,7 @@ package com.kalu.growit.navigation
 
 import androidx.navigation.NavController
 import com.kalu.growit.feature.onboarding.destinations.AccountLookUpDestination
+import com.kalu.growit.feature.onboarding.destinations.CreateNewScreenDestination
 import com.kalu.growit.feature.onboarding.destinations.DeviceVerificationScreenDestination
 import com.kalu.growit.feature.onboarding.destinations.WalkThroughScreenDestination
 import com.kalu.growit.feature.onboarding.navigator.OnboardingNavigator
@@ -15,7 +16,7 @@ class CoreFeatureNavigator(
 ) : OnboardingNavigator {
 
     override fun moveNext() {
-        navController.navigate(WalkThroughScreenDestination within navGraph )
+        navController.navigate(WalkThroughScreenDestination within navGraph)
     }
 
     override fun getStarted() {
@@ -24,6 +25,10 @@ class CoreFeatureNavigator(
 
     override fun openDeviceVerification(phoneNumber: String) {
         navController.navigate(DeviceVerificationScreenDestination(phoneNumber) within navGraph)
+    }
+
+    override fun createNewPin() {
+        navController.navigate(CreateNewScreenDestination within navGraph)
     }
 
 }

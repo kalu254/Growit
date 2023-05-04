@@ -17,10 +17,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.*
+import com.kalu.growit.compose_ui.R.*
 import com.kalu.growit.compose_ui.components.GrowItOutlinedRoundedButton
 import com.kalu.growit.compose_ui.components.GrowItSolidRoundedButton
 import com.kalu.growit.compose_ui.theme.PrimaryTextColor
@@ -39,11 +41,9 @@ import kotlinx.coroutines.launch
 fun SplashScreen(
     navigator: OnboardingNavigator
 ) {
-
     val scale = remember {
         Animatable(0f)
     }
-
     LaunchedEffect(key1 = true) {
         scale.animateTo(
             targetValue = 0.2f,
@@ -60,7 +60,7 @@ fun SplashScreen(
 
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = com.kalu.growit.compose_ui.R.drawable.banque),
+            painter = painterResource(id = drawable.banque),
             contentDescription = "Logo"
         )
     }
@@ -146,14 +146,14 @@ fun WalkthroughButtons(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        GrowItSolidRoundedButton("Get Started") {
+        GrowItSolidRoundedButton(stringResource(id = string.get_started)) {
+            onClickGetStarted.invoke()
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        GrowItOutlinedRoundedButton(stringResource(id = string.continue_str)) {
             scope.launch {
                 state.scrollToPage(state.currentPage + 1)
             }
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        GrowItOutlinedRoundedButton("Continue") {
-            onClickGetStarted.invoke()
         }
 
     }

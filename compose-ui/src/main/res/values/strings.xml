@@ -10,4 +10,15 @@
     <string name="device_verification">Device Verification</string>
     <string name="device_verification_desc">We’ve sent verification code to your mobile number %s</string>
     <string name="session_expiresin">This session will expire in</string>
+    <string name="change_default_pin">Change default PIN</string>
+    <string name="default_pin_desc">Secure your profile with a PIN, Check on your SMS for a 4 digit one time PIN(OTP) Sent to your phone number +254 789 90 78 90</string>
+    <string name="new_pin">New PIN</string>
+    <string name="confirm_new_pin">Confirm Pin</string>
+    <string name="ex_1234">e.g 1234</string>
+    <string name="submit">Submit</string>
+    <string name="get_started">Get Started</string>
+    <string name="continue_str">Continue</string>
+    <string name="set_security_question">Set securityquestions</string>
+    <string name="please_select_questions_to_answer">Please select question you would like to answer during while accessing M-chama groups.</string>
+
 </resources>
