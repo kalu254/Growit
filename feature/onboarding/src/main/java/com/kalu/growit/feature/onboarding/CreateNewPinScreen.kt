@@ -57,7 +57,7 @@ fun CreateNewScreen(
         mutableStateOf(false)
     }
 
-    Box(
+    Column(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 24.dp)
             .imePadding()
@@ -66,7 +66,7 @@ fun CreateNewScreen(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.TopCenter),
+            ,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Column(
@@ -144,13 +144,16 @@ fun CreateNewScreen(
 
             }
         }
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .height(50.dp)
-                .fillMaxWidth()
-                .background(Color.Red)
-        )
 
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 32.dp)
+        ) {
+            GrowItSolidRoundedButton(buttonText = stringResource(id = R.string.submit)) {
+                navigator.setSecurityQuestions()
+            }
+        }
     }
 }

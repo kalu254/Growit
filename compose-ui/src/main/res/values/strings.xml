@@ -20,5 +20,9 @@
     <string name="continue_str">Continue</string>
     <string name="set_security_question">Set securityquestions</string>
     <string name="please_select_questions_to_answer">Please select question you would like to answer during while accessing M-chama groups.</string>
+    <string name="select_quiz_one">%s.Select question?</string>
+    <string name="answer_goes_here">Your question goes here</string>
+    <string name="question_goes_here">Your question goes here</string>
+
 
 </resources>

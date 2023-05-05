@@ -3,23 +3,29 @@ package com.kalu.growit.compose_ui.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.toSize
 import com.kalu.growit.compose_ui.theme.PrimaryColor
 import com.kalu.growit.compose_ui.theme.PrimaryTextColor
 
@@ -159,3 +165,63 @@ fun CustomTextField(
         }
     )
 }
+
+
+@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
+@Composable
+fun GrowitAutoCompleteTextView(
+    modifier: Modifier = Modifier,
+    fontSize: TextUnit = MaterialTheme.typography.bodySmall.fontSize,
+    options: List<String>,
+    onSelection: (String) -> Unit
+) {
+    var exp by remember { mutableStateOf(false) }
+    var selectedText by remember { mutableStateOf("") }
+    var textfieldSize by remember { mutableStateOf(Size.Zero) }
+
+    androidx.compose.material.ExposedDropdownMenuBox(
+        expanded = exp, onExpandedChange = { exp = !exp }) {
+        OutlinedTextField(
+            value = selectedText,
+            onValueChange = { selectedText = it },
+            modifier = modifier
+                .fillMaxWidth()
+                .onGloballyPositioned { coordinates ->
+                    //This value is used to assign to the DropDown the same width
+                    textfieldSize = coordinates.size.toSize()
+                },
+            textStyle = LocalTextStyle.current.copy(
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = fontSize
+            ),
+            trailingIcon = {
+                ExposedDropdownMenuDefaults.TrailingIcon(
+                    expanded = exp
+                )
+            }
+        )
+
+        if (options.isNotEmpty()) {
+            ExposedDropdownMenu(expanded = exp, onDismissRequest = { exp = false }) {
+                options.forEach { option ->
+                    androidx.compose.material.DropdownMenuItem(
+                        onClick = {
+                            selectedText = option
+                            exp = false
+                            onSelection.invoke(selectedText)
+                        }
+                    ) {
+                        androidx.compose.material.Text(
+                            text = option, style = LocalTextStyle.current.copy(
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f),
+                            )
+                        )
+                    }
+                }
+            }
+        }
+
+    }
+
+}
+

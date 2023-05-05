@@ -18,6 +18,7 @@ object NavGraphs {
             AccountLookUpDestination,
             DeviceVerificationScreenDestination,
             CreateNewScreenDestination,
+            SetSecurityQuestionsScreenDestination,
         ).routedIn(this)
             .associateBy { it.route }
     }

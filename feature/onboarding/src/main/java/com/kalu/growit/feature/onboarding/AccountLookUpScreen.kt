@@ -62,7 +62,7 @@ fun AccountLookUp(
         mutableStateOf(false)
     }
 
-    Box(
+    Column(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 24.dp)
             .verticalScroll(
@@ -72,7 +72,7 @@ fun AccountLookUp(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.TopCenter), verticalArrangement = Arrangement.SpaceBetween
+            , verticalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
                 Text(
@@ -195,7 +195,7 @@ fun AccountLookUp(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.BottomCenter)
+                .padding(top = 32.dp)
         ) {
             GrowItSolidRoundedButton(buttonText = stringResource(id = R.string.fetch)) {
                 navigator.openDeviceVerification("254746882415")

@@ -1,10 +1,7 @@
 package com.kalu.growit.navigation
 
 import androidx.navigation.NavController
-import com.kalu.growit.feature.onboarding.destinations.AccountLookUpDestination
-import com.kalu.growit.feature.onboarding.destinations.CreateNewScreenDestination
-import com.kalu.growit.feature.onboarding.destinations.DeviceVerificationScreenDestination
-import com.kalu.growit.feature.onboarding.destinations.WalkThroughScreenDestination
+import com.kalu.growit.feature.onboarding.destinations.*
 import com.kalu.growit.feature.onboarding.navigator.OnboardingNavigator
 import com.ramcosta.composedestinations.dynamic.within
 import com.ramcosta.composedestinations.navigation.navigate
@@ -29,6 +26,9 @@ class CoreFeatureNavigator(
 
     override fun createNewPin() {
         navController.navigate(CreateNewScreenDestination within navGraph)
+    }
+    override fun setSecurityQuestions() {
+        navController.navigate(SetSecurityQuestionsScreenDestination within navGraph)
     }
 
 }
