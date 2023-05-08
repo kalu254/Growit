@@ -13,7 +13,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,7 +31,6 @@ fun SetSecurityQuestionsScreen(navigator: OnboardingNavigator) {
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 24.dp)
             .fillMaxSize()
-            .background(Color.Red)
             .verticalScroll(
                 rememberScrollState()
             )
@@ -177,7 +175,7 @@ fun SetSecurityQuestionsScreen(navigator: OnboardingNavigator) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 32.dp)
+                .padding(top = 48.dp)
         ) {
             GrowItSolidRoundedButton(buttonText = stringResource(id = R.string.submit)) {
             }
